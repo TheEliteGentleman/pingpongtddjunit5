@@ -11,7 +11,6 @@ public class RomanConverter {
 	private static final Map<Character, Integer> ROMAN_NUMERALS;
 	private static Set<Character> SUBTRACTIVE_NUMERALS;
 	
-	
 	static {
 		Map<Character, Integer> romanNumerals = new HashMap<>();
 		romanNumerals.put('I', 1);
