@@ -9,7 +9,7 @@ import java.util.Set;
 public class RomanConverter {
 	
 	private static final Map<Character, Integer> ROMAN_NUMERALS;
-	private static Set<Character> SUBTRACTIVE_NUMERALS;
+	private static Set<String> SUBTRACTIVE_NUMERALS;
 	
 	static {
 		Map<Character, Integer> romanNumerals = new HashMap<>();
@@ -23,12 +23,13 @@ public class RomanConverter {
 		
 		ROMAN_NUMERALS = Collections.unmodifiableMap(romanNumerals);
 		
-		Set<Character> subtractiveNumerals = new HashSet<>();
-		subtractiveNumerals.add('V');
-		subtractiveNumerals.add('X');
-		subtractiveNumerals.add('L');
-		subtractiveNumerals.add('C');
-		subtractiveNumerals.add('M');
+		Set<String> subtractiveNumerals = new HashSet<>();
+		subtractiveNumerals.add("IV");
+		subtractiveNumerals.add("IX");
+		subtractiveNumerals.add("XL");
+		subtractiveNumerals.add("XC");
+		subtractiveNumerals.add("CD");
+		subtractiveNumerals.add("CM");
 		
 		SUBTRACTIVE_NUMERALS = Collections.unmodifiableSet(subtractiveNumerals);
 	}
@@ -39,8 +40,9 @@ public class RomanConverter {
     	int length = s.length();
     	
     	for (int i = 0; i < length; i++) {
-    		int value = toNumeric(s.charAt(i));
-    		boolean subtract = (i == (length - 2) && isSubtractiveNumeral(s.charAt(length - 1)));
+    		char c = s.charAt(i);
+    		int value = toNumeric(c);
+    		boolean subtract = ((i < length - 1) && isSubtractiveNumeral(String.valueOf(new char[] {c, s.charAt(i + 1)})));
     		
     		total += subtract ? -value : value;
     	}
@@ -48,8 +50,8 @@ public class RomanConverter {
         return total;
     }
     
-    private static boolean isSubtractiveNumeral(final char c) {
-    	return SUBTRACTIVE_NUMERALS.contains(c);
+    private static boolean isSubtractiveNumeral(final String s) {
+    	return SUBTRACTIVE_NUMERALS.contains(s);
     }
     
     private static int toNumeric(final char c) {
