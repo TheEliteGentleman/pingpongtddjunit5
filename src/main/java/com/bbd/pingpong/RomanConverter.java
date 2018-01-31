@@ -36,7 +36,14 @@ public class RomanConverter {
 	
     public static int Convert(String s)
     {
-    	int total = 0;
+    	if (s == null || s.isEmpty())  {
+    		throw (new IllegalArgumentException("Not a valid roman"));
+		}		     
+    		 		     
+		// Handle upper case and lower case
+		s = s.toUpperCase();
+    	
+		int total = 0;
     	int length = s.length();
     	
     	for (int i = 0; i < length; i++) {
@@ -56,7 +63,7 @@ public class RomanConverter {
     
     private static int toNumeric(final char c) {
     	if (!ROMAN_NUMERALS.containsKey(c)) {
-    		throw new ArithmeticException("Invalid character '" + c + "'.");
+    		throw new ArithmeticException("Invalid roman character '" + c + "'.");
     	}
     	
     	return ROMAN_NUMERALS.get(c);
